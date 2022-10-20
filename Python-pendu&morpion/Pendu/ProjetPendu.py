@@ -43,19 +43,15 @@ f.close()
 
 #Longueur du mot à deviner 
 LenMot=len(mot)
-print(mot," a ",LenMot, " caracter ")
 
 #afficher le nombre de vie
 print("Nombre de vie(s) restante(s) : ", vie)
 
 #créer deux listes (1 pour le mot du jeu) (2 pour le mot à proposer)
-#print(ConvertChaineToList(mot))
 Liste1=ConvertChaineToList(mot)
-Liste2=ConvertChaineToList(mot)
-for i in Liste2:
-        Liste2(i)="_"
 print("Liste 1 ", Liste1)
-print("Liste 2 ", Liste2)
+Liste2=['_'] * LenMot #créer une liste avec des tirets 
+print(Liste2)
 
 #Proposer des lettres jusqu'à la fin des vies
 while vie > 0 :
