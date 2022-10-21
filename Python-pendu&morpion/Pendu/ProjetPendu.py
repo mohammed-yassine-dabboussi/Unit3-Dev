@@ -3,11 +3,15 @@
 
 import random
 
-# convertir une chaine à une liste
+# fonction pour convertir une chaine à une liste
 def ConvertChaineToList(string):
     liste = []
     liste[:0] = string
     return liste
+
+
+print("***Jeu Pendu***")
+print("")
 
 #Choix du niveau
 niveau = input("Bonjour, à quel niveau souhaites tu jouer? ")
@@ -26,7 +30,7 @@ elif niveau=="expert":
 import random # bibliothèque de random(aléatoire)
 
 # ouvrirle fichier texte
-with open("dico_france.txt", "r", encoding= "iso 8859-1") as f: 
+with open("dico_france.txt", "r", encoding= "iso 8859-1") as f: #encoding= "iso 8859-1" pour les accents 
     
     
     #lire le fichier texte
@@ -38,7 +42,7 @@ with open("dico_france.txt", "r", encoding= "iso 8859-1") as f:
     for i in range(len(contents)):#parcourir toutes lignes 
         mot=contents[NumAleatoire-1] # -1 car le i commence par 0 et le fichier texte commence par 1
         
-    print(mot) # afficher le mot du jeu !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    print("le mot deviner pour le test (à supprimer  ligne 44)", mot) # afficher le mot à deviner 
 f.close()    
 
 #Longueur du mot à deviner 
@@ -48,19 +52,49 @@ LenMot=len(mot)
 print("Nombre de vie(s) restante(s) : ", vie)
 
 #créer deux listes (1 pour le mot du jeu) (2 pour le mot à proposer)
-Liste1=ConvertChaineToList(mot)
-print("Liste 1 ", Liste1)
-Liste2=['_'] * LenMot #créer une liste avec des tirets 
-print(Liste2)
+Liste1=ConvertChaineToList(mot)#Liste 1 contient le mot à deviner
+Liste2=['_'] * LenMot #créer une liste avec des tirets qui a la même taille que la longueur du mot à deviner
+
+#changer le prémier élément de la liste en miniscule
+#if  ord(Liste1[0])> 64 and ord(Liste1[0]< 91): # ord donne le code ascii d'un caractère
+#    Liste1[0]=chr(ord(Liste1[0])+32)
 
 #Proposer des lettres jusqu'à la fin des vies
-while vie > 0 :
-        LettreProposees = input("Lettre proposées : ")
-        print("")
-        vie -=1
+ch1=""
+ch2=" "
 
+#Premier affichage de lettres proposés
+
+
+while vie > 0 and Liste1 != Liste2:
+
+        #Saisie de la lettre et garder chaque lettre à la fin
+        
+        lettreProposee=input("Quelle lettre propose tu ? ")
+        
+        #Pour afficher Lettres proposées
+        ch1=ch1+lettreProposee+" "
+        ch2="Lettres proposées : " + ch1 + " "
+        print(ch2)
+        
+        vie -=1
+        print("Nombre de vie(s) restante(s) : ", vie)
+        
+        #condition si la lettre proposée existe dans le mot à deviner
+        j=0 
+        for i in Liste1:
+            if i == lettreProposee:
+                #remplacement
+                Liste2[j]=i
+            j += 1
+        for i in Liste2:
+                    print(i, end=" ")
+        print("")
+
+
+print("")
 #perte ou victoire 
-if vie == 0:
-        print("vous avez perdu")
-#elif mot == mot à deviner :
-#        print("Vous avez gagné ")
+if vie == 0 or Liste1 != Liste2:
+        print("*** Vous avez perdu ***")
+elif Liste1==Liste2 :
+        print("*** Vous avez gagné ***")
